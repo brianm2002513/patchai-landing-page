@@ -1,0 +1,364 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --size: 500;
+}
+
+/* ── Theme Tokens ── */
+[data-theme="light"] {
+  --bg-primary: #f7f7f4;
+  --bg-secondary: #ffffff;
+  --bg-card: #f0ebe3;
+  --bg-section: #f7f7f4;
+  --text-primary: #221A0F;
+  --text-secondary: #111111;
+  --text-accent: #5e452b;
+  --text-muted: #6b7280;
+  --accent: #5e452b;
+  --accent-hover: #4a3520;
+  --border: #ecece7;
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-border: rgba(94, 69, 43, 0.1);
+  --terminal-bg: #ffffff;
+  --terminal-header: #f3f3f3;
+  --terminal-border: #dfdfdf;
+  --terminal-tab-active: #ffffff;
+  --terminal-tab-inactive: #ececec;
+  --terminal-dots: #cbd5e1;
+  --overlay-image: rgba(0, 0, 0, 0);
+  color-scheme: light;
+  color: #221A0F;
+  background-color: #f7f7f4;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0d0d0c;
+  --bg-secondary: #141413;
+  --bg-card: #1a1917;
+  --bg-section: #111110;
+  --text-primary: #f0ebe3;
+  --text-secondary: #e5e0d8;
+  --text-accent: #c49a3c;
+  --text-muted: #9ca3af;
+  --accent: #c49a3c;
+  --accent-hover: #d4aa4c;
+  --border: #2a2825;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --btn-secondary-bg: #1a1917;
+  --btn-secondary-border: rgba(196, 154, 60, 0.2);
+  --terminal-bg: #1e1e1e;
+  --terminal-header: #2d2d2d;
+  --terminal-border: #3e3e3e;
+  --terminal-tab-active: #1e1e1e;
+  --terminal-tab-inactive: #2d2d2d;
+  --terminal-dots: #404040;
+  --overlay-image: rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+  color: #f0ebe3;
+  background-color: #0d0d0c;
+}
+
+[data-theme="dark"] .dark-invert {
+  filter: invert(1) brightness(2);
+}
+
+[data-theme="dark"] .customer-logo {
+  filter: grayscale(0) brightness(0) invert(1) !important;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --size: 768;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --size: 1024;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --size: 1440;
+  }
+}
+
+html {
+  font-size: calc((100vw / var(--size)) * 10);
+  line-height: 1.3;
+  height: 100%
+}
+
+#root {
+  max-width: 100%;
+  height: 100%;
+}
+
+.ubuntu-regular {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.space-grotesk-normal {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.space-grotesk-bold {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  width: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #edecec33 transparent;
+}
+
+/* Chrome, Edge, Safari */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #edecec33;
+  border-radius: 0;
+  /* square */
+}
+
+truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.terminal {
+  background: var(--terminal-bg);
+  font-family: "Fira Code", monospace;
+  padding-top: 10px;
+}
+
+.terminal pre {
+  counter-reset: line;
+}
+
+.logo {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.terminal code span.line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 30px;
+  margin-left: -10px;
+  margin-right: 10px;
+  color: #858585;
+}
+
+.shiki {
+  background-color: var(--terminal-bg) !important;
+}
+
+.codeblock pre,
+.codeblock code {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.heroTerminal {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.line {
+  display: flex;
+}
+
+.cursor {
+  width: 10px;
+  height: 1.2em;
+  background: #58a6ff;
+  margin-left: 4px;
+}
+
+/* ============================================================
+   CodeEditor — Code Correction Animation Styles
+   ============================================================ */
+
+/* --- Line Layout --- */
+.code-line {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 1.4em;
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+.line-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.line-content>span {
+  display: block;
+}
+
+/* --- Line Numbers --- */
+.codeblock code {
+  counter-reset: line;
+}
+
+.code-line .line-content>span::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 30px;
+  margin-right: 20px;
+  color: #555;
+  text-align: right;
+  user-select: none;
+  font-size: 0.85em;
+}
+
+/* --- Change Annotations --- */
+.change-annotation {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  line-height: 1.5;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+.annotation-fix {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+/* --- Correction Cursor --- */
+.fix-cursor {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 1.2em;
+  background: #f87171;
+  opacity: 0;
+  z-index: 5;
+  border-radius: 1px;
+}
+
+/* --- Replay Button (matches DemoStage restart) --- */
+.replay-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.replay-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: rotate(-30deg) scale(1.1);
+}
+
+.replay-btn:active {
+  transform: rotate(0deg) scale(0.95);
+}
+
+/* PatchAI 3D Shimmer Text */
+.patchai-text-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.patchai-text-shimmer {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: inherit;
+  background: linear-gradient(90deg,
+      #5e452b 0%,
+      #8b6914 15%,
+      #c49a3c 30%,
+      #5e452b 45%,
+      #8b6914 60%,
+      #c49a3c 75%,
+      #5e452b 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: patchai-shimmer 3s linear infinite;
+  filter: drop-shadow(0 0 1px rgba(94, 69, 43, 0.3));
+}
+
+@keyframes patchai-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
