@@ -113,7 +113,7 @@ function Navbar() {
                             onMouseEnter={() => setActiveDropdown(link.label)}
                             onMouseLeave={() => setActiveDropdown(null)}
                         >
-                            <button className="flex items-center gap-1 cursor-pointer hover:text-black transition-colors">
+                            <button className="flex items-center gap-1 cursor-pointer hover:opacity-70 transition-colors">
                                 {link.label}
                                 {link.dropdown && (
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${activeDropdown === link.label ? 'rotate-180' : ''}`}><path d="m6 9 6 6 6-6" /></svg>
