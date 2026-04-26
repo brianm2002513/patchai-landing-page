@@ -236,13 +236,14 @@ function DemoWindow() {
 
     // Sync files/activeFile when scenario changes — setState is intentional here
     // since these values are also independently mutable via user tab interactions
-    // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps
+    /* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
     useEffect(() => {
         if (!currentScenario) return;
 
         setFiles(currentScenario.files);
         setActiveFile(currentScenario.defaultFile);
     }, [scenario]);
+    /* eslint-enable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 
     return (
         <>
