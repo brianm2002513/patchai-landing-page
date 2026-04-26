@@ -61,7 +61,7 @@ function Navbar() {
     }, []);
 
     useGSAP(() => {
-        gsap.set(desktopmenuRef.current, { xPercent: 20 })
+        gsap.set(desktopmenuRef.current, { xPercent: 23 })
         const anim = gsap.timeline({ paused: true })
             .to(desktopmenuRef.current, { xPercent: 0, duration: 0.2, ease: 'none' })
             .set(headerRef.current, { borderColor: 'var(--border)' }, 0);
@@ -99,7 +99,7 @@ function Navbar() {
     return (
         <header ref={headerRef} className='w-full flex flex-col border-b border-transparent fixed top-0 left-0 z-50 space-grotesk-normal' style={{ color: 'var(--text-primary)', backgroundColor: 'var(--bg-primary)' }}>
             <div className='flex justify-between px-8 py-5 md:px-8 items-center'>
-                <Link to="/" className="flex items-center gap-3">
+                <Link to="/" data-testid="navbar-logo" className="flex items-center gap-3">
                     <img src="/patchai-logo.svg" alt="PatchAI" className="w-13 h-13" />
                     <PatchAI3DText style={{ fontSize: '2.5rem' }} />
                 </Link>
@@ -112,6 +112,7 @@ function Navbar() {
                             className="relative group py-4"
                             onMouseEnter={() => setActiveDropdown(link.label)}
                             onMouseLeave={() => setActiveDropdown(null)}
+                            data-testid={`${link.label.toLowerCase()}-link`}
                         >
                             <button className="flex items-center gap-1 cursor-pointer hover:opacity-70 transition-colors">
                                 {link.label}
@@ -141,15 +142,35 @@ function Navbar() {
                         </div>
                     ))}
                     <div className="pl-4 flex items-center gap-6" style={{ borderLeft: '1px solid var(--border)' }}>
-                        <button className="transition-colors cursor-pointer" style={{ color: 'var(--text-primary)' }}>Sign in</button>
+                        <button
+                            className="transition-colors cursor-pointer"
+                            style={{ color: 'var(--text-primary)' }}
+                            onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                        >
+                            Sign in
+                        </button>
                         <ThemeToggle />
-                        <button className="text-white px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer" style={{ backgroundColor: 'var(--accent)' }}>Download</button>
+                        <button
+                            className="text-white px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                            style={{ backgroundColor: 'var(--accent)' }}
+                            onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                        >
+                            Join Waitlist
+                        </button>
                     </div>
                 </nav>
 
                 {/* Mobile Icons */}
                 <div className="md:hidden flex gap-5 text-2xl items-center cursor-pointer" style={{ color: 'var(--text-primary)' }}>
-                    <div className='space-grotesk-normal text-3xl'>Sign in</div>
+                    <div
+                        className='space-grotesk-normal text-3xl'
+                        onClick={() => {
+                            document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                            setIsOpen(false);
+                        }}
+                    >
+                        Sign in
+                    </div>
                     <button
                         onClick={toggleMenu}
                         aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -238,8 +259,26 @@ function Navbar() {
                             <span className="text-3xl" style={{ color: 'var(--text-primary)' }}>Theme</span>
                             <ThemeToggle />
                         </div>
-                        <button className="text-3xl py-5" style={{ color: 'var(--text-primary)', borderBottom: '1px solid var(--border-subtle)' }}>Sign in</button>
-                        <button className="w-full text-white py-6 rounded-2xl text-2xl mt-4 shadow-xl" style={{ backgroundColor: 'var(--accent)' }}>Download for free</button>
+                        <button
+                            className="text-3xl py-5 text-left"
+                            style={{ color: 'var(--text-primary)', borderBottom: '1px solid var(--border-subtle)' }}
+                            onClick={() => {
+                                document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                                setIsOpen(false);
+                            }}
+                        >
+                            Sign in
+                        </button>
+                        <button
+                            className="w-full text-white py-6 rounded-2xl text-2xl mt-4 shadow-xl"
+                            style={{ backgroundColor: 'var(--accent)' }}
+                            onClick={() => {
+                                document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                                setIsOpen(false);
+                            }}
+                        >
+                            Join Waitlist
+                        </button>
                     </div>
                 </div>
             </div>
