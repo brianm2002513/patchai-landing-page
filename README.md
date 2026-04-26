@@ -1,6 +1,6 @@
 # PatchAI | Ship Cleaner Code. Automatically.
 
-[![CI/CD Pipeline](https://github.com/brianm2002513/aisaas-landingpage/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/brianm2002513/aisaas-landingpage/actions/workflows/ci-cd.yml)
+[![CI/CD Pipeline](https://github.com/brianm2002513/patchai-landing-page/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/brianm2002513/patchai-landing-page/actions/workflows/ci-cd.yml)
 
 PatchAI is a high-performance landing page for a next-generation AI coding assistant. Built with **React 19**, **Tailwind 4**, and **GSAP**, it demonstrates a commitment to cinematic user experiences combined with rigorous engineering standards.
 
