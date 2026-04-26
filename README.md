@@ -1,16 +1,37 @@
-# React + Vite
+# PatchAI | Ship Cleaner Code. Automatically.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PatchAI is a high-performance landing page for a next-generation AI coding assistant. Built with **React 19**, **Tailwind 4**, and **GSAP**, it demonstrates a commitment to cinematic user experiences combined with rigorous engineering standards.
 
-Currently, two official plugins are available:
+## 🚀 Engineering Highlights
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **FOUC Prevention**: Implemented a blocking critical-path script in `index.html` to prevent Flash of Unstyled Content, ensuring theme synchronization (Dark/Light/System) before the first paint.
+- **GSAP Context Management**: Utilizes `@gsap/react` for memory-safe animation cleanup and high-performance scroll-driven interactions.
+- **Advanced State & Routing**: Leverages **React Router 7** for seamless navigation and **Context API** for global theme and state management.
 
-## React Compiler
+## 🧪 Testing Suite (Vitest)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project features a robust unit testing suite designed for animation-heavy applications.
 
-## Expanding the ESLint configuration
+- **Mocked GSAP Engine**: A custom `setupTests.js` implementation that mocks the entire GSAP and ScrollTrigger API, allowing component tests to run in headless environments (JSDOM) without crashing.
+- **Component Integrity**: Unit tests for critical components like the `WaitlistForm` (validation/persistence) and `Navbar` (navigation/responsiveness).
+- **Test Command**: 
+  ```bash
+  npm test
+  ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+- **Framework**: React 19 + Vite 7
+- **Styling**: Tailwind CSS 4 + DaisyUI
+- **Animations**: GSAP (GreenSock) + @gsap/react
+- **3D Elements**: Three.js + React Three Fiber
+- **Testing**: Vitest + React Testing Library + JSDOM
+
+---
+
+## 📦 Installation & Setup
+
+1. Clone the repository.
+2. Install dependencies: `npm install`
+3. Start the dev server: `npm run dev`
+4. Run the test suite: `npm test`
