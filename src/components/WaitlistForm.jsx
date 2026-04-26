@@ -24,7 +24,7 @@ const WaitlistForm = () => {
                 setStatus('success');
                 setMessage('You are on the list! We will be in touch.');
                 setEmail('');
-            } catch (err) {
+            } catch (_err) {
                 setStatus('error');
                 setMessage('Something went wrong. Please try again.');
             }

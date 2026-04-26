@@ -1,30 +1,30 @@
-import { useRef, useMemo } from 'react'
+import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
 const COLOR = '#5e452b'
+const PARTICLE_COUNT = 20
+
+// Pre-compute particle data at module scope to keep render pure
+const PARTICLE_DATA = Array.from({ length: PARTICLE_COUNT }, (_, i) => {
+  const angle = (i / PARTICLE_COUNT) * Math.PI * 2
+  return {
+    angle,
+    radius: 0.9 + Math.random() * 0.5,
+    speed: 0.15 + Math.random() * 0.2,
+    size: 0.012 + Math.random() * 0.018,
+    phase: Math.random() * Math.PI * 2,
+    ySpread: 0.3 + Math.random() * 0.2,
+  }
+})
 
 function Particles() {
-  const count = 20
   const group = useRef()
-  const particles = useMemo(() =>
-    Array.from({ length: count }, (_, i) => {
-      const angle = (i / count) * Math.PI * 2
-      return {
-        angle,
-        radius: 0.9 + Math.random() * 0.5,
-        speed: 0.15 + Math.random() * 0.2,
-        size: 0.012 + Math.random() * 0.018,
-        phase: Math.random() * Math.PI * 2,
-        ySpread: 0.3 + Math.random() * 0.2,
-      }
-    })
-    , [])
 
   useFrame(({ clock }) => {
     if (!group.current) return
     const t = clock.getElapsedTime()
     group.current.children.forEach((child, i) => {
-      const p = particles[i]
+      const p = PARTICLE_DATA[i]
       const a = p.angle + t * p.speed
       child.position.x = Math.cos(a) * p.radius
       child.position.y = Math.sin(a) * p.radius * p.ySpread + Math.sin(t * 0.8 + p.phase) * 0.1
@@ -37,7 +37,7 @@ function Particles() {
 
   return (
     <group ref={group}>
-      {particles.map((_, i) => (
+      {PARTICLE_DATA.map((_, i) => (
         <mesh key={i}>
           <sphereGeometry args={[1, 6, 6]} />
           <meshBasicMaterial color={COLOR} transparent opacity={0.35} />

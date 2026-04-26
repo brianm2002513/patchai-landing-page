@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 /* ── Abstract SVG Visualizations ── */
+
+// Pre-compute random offsets so render stays pure
+const LINE_OFFSETS = [0, 1, 2, 3, 4, 5, 6].map((i) => ({
+    i,
+    rand: Math.random() * 20,
+}));
 
 const LineChart = () => (
     <svg viewBox="0 0 300 200" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
         {/* Multiple overlapping growth lines */}
-        {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        {LINE_OFFSETS.map(({ i, rand }) => (
             <path
                 key={i}
-                d={`M 0 ${190 - i * 8} Q 75 ${180 - i * 12 - Math.random() * 20}, 150 ${140 - i * 10} T 300 ${60 - i * 6}`}
+                d={`M 0 ${190 - i * 8} Q 75 ${180 - i * 12 - rand}, 150 ${140 - i * 10} T 300 ${60 - i * 6}`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
@@ -26,59 +32,61 @@ const LineChart = () => (
     </svg>
 );
 
-const DotGrid = () => {
-    const rows = 12;
-    const cols = 14;
-    return (
-        <svg viewBox="0 0 280 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-            {Array.from({ length: rows }).map((_, r) =>
-                Array.from({ length: cols }).map((_, c) => {
-                    // Create a contribution-graph-like pattern — denser towards bottom-right
-                    const intensity = Math.random();
-                    const weight = (r / rows) * 0.4 + (c / cols) * 0.3 + intensity * 0.3;
-                    const size = weight > 0.5 ? 4 + weight * 4 : 3;
-                    const opacity = weight > 0.35 ? 0.15 + weight * 0.5 : 0.08;
-                    return (
-                        <rect
-                            key={`${r}-${c}`}
-                            x={c * 20 + 2}
-                            y={r * 20 + 2}
-                            width={size}
-                            height={size}
-                            rx="1"
-                            fill="currentColor"
-                            opacity={opacity}
-                        />
-                    );
-                })
-            )}
-        </svg>
-    );
-};
+// Pre-compute dot grid intensities
+const DOT_ROWS = 12;
+const DOT_COLS = 14;
+const DOT_DATA = Array.from({ length: DOT_ROWS }, (_, r) =>
+    Array.from({ length: DOT_COLS }, (_, c) => {
+        const intensity = Math.random();
+        const weight = (r / DOT_ROWS) * 0.4 + (c / DOT_COLS) * 0.3 + intensity * 0.3;
+        return {
+            r, c,
+            size: weight > 0.5 ? 4 + weight * 4 : 3,
+            opacity: weight > 0.35 ? 0.15 + weight * 0.5 : 0.08,
+        };
+    })
+);
 
-const BarChart = () => {
-    const bars = 24;
-    return (
-        <svg viewBox="0 0 300 200" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-            {Array.from({ length: bars }).map((_, i) => {
-                const height = 30 + Math.random() * 140 + (i / bars) * 40;
-                const opacity = 0.2 + (i / bars) * 0.4 + Math.random() * 0.15;
-                return (
-                    <rect
-                        key={i}
-                        x={i * 12.5}
-                        y={200 - height}
-                        width="3"
-                        height={height}
-                        fill="currentColor"
-                        opacity={opacity}
-                        rx="1.5"
-                    />
-                );
-            })}
-        </svg>
-    );
-};
+const DotGrid = () => (
+    <svg viewBox="0 0 280 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+        {DOT_DATA.flat().map(({ r, c, size, opacity }) => (
+            <rect
+                key={`${r}-${c}`}
+                x={c * 20 + 2}
+                y={r * 20 + 2}
+                width={size}
+                height={size}
+                rx="1"
+                fill="currentColor"
+                opacity={opacity}
+            />
+        ))}
+    </svg>
+);
+
+// Pre-compute bar chart data
+const BAR_COUNT = 24;
+const BAR_DATA = Array.from({ length: BAR_COUNT }, (_, i) => ({
+    height: 30 + Math.random() * 140 + (i / BAR_COUNT) * 40,
+    opacity: 0.2 + (i / BAR_COUNT) * 0.4 + Math.random() * 0.15,
+}));
+
+const BarChart = () => (
+    <svg viewBox="0 0 300 200" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+        {BAR_DATA.map((bar, i) => (
+            <rect
+                key={i}
+                x={i * 12.5}
+                y={200 - bar.height}
+                width="3"
+                height={bar.height}
+                fill="currentColor"
+                opacity={bar.opacity}
+                rx="1.5"
+            />
+        ))}
+    </svg>
+);
 
 /* ── Main Component ── */
 

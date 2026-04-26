@@ -68,8 +68,7 @@ function runCorrection(tl, container, buggyIdx, correctionText) {
   const annotation = buggyLine.querySelector(".change-annotation");
   if (annotation) annotation.style.opacity = "0";
 
-  // Save original HTML, set up correction text element
-  const originalHTML = lineContent.innerHTML;
+  // Set up correction text element
   const correctionEl = document.createElement("span");
   correctionEl.style.cssText =
     "color:#4ade80;font-weight:500;opacity:0;display:none;";

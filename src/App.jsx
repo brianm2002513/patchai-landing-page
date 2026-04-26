@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import bgImage from './assets/images/francis_cropsey_painting_oil_on_canvas.jpg'
 import teamImage from './assets/images/team_collaboration.png'

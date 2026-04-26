@@ -1,20 +1,7 @@
-import { useState, useEffect } from 'react';
 import PatchAI3DText from './PatchAI3DText';
 import WaitlistForm from './WaitlistForm';
 
 const CTASection = () => {
-    const [device, setDevice] = useState('Desktop');
-
-    useEffect(() => {
-        const userAgent = navigator.userAgent;
-        if (userAgent.indexOf("Win") !== -1) setDevice("Windows");
-        else if (userAgent.indexOf("Mac") !== -1) setDevice("macOS");
-        else if (userAgent.indexOf("X11") !== -1) setDevice("Linux");
-        else if (userAgent.indexOf("Linux") !== -1) setDevice("Linux");
-        else if (userAgent.indexOf("Android") !== -1) setDevice("Android");
-        else if (userAgent.indexOf("iPhone") !== -1) setDevice("iOS");
-    }, []);
-
     return (
         <section className="py-16 px-6 md:px-10">
             <div className="mx-auto rounded-[3rem] p-12 md:p-12 text-center flex flex-col items-center gap-8 overflow-hidden relative group">

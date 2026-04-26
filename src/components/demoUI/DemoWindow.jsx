@@ -172,7 +172,7 @@ function DemoWindow() {
             ease: "power1.out"
         });
 
-    }, [currentAgent?.progress]);
+    }, [currentAgent]);
 
     const inProgress = agentsState.filter(a => a.status === "running");
     const inQueue = agentsState.filter(a => a.status === "in-queue");
@@ -234,6 +234,9 @@ function DemoWindow() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Sync files/activeFile when scenario changes — setState is intentional here
+    // since these values are also independently mutable via user tab interactions
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps
     useEffect(() => {
         if (!currentScenario) return;
 
