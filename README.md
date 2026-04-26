@@ -1,5 +1,7 @@
 # PatchAI | Ship Cleaner Code. Automatically.
 
+[![CI/CD Pipeline](https://github.com/brianm2002513/aisaas-landingpage/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/brianm2002513/aisaas-landingpage/actions/workflows/ci-cd.yml)
+
 PatchAI is a high-performance landing page for a next-generation AI coding assistant. Built with **React 19**, **Tailwind 4**, and **GSAP**, it demonstrates a commitment to cinematic user experiences combined with rigorous engineering standards.
 
 ## 🚀 Engineering Highlights
@@ -19,6 +21,18 @@ This project features a robust unit testing suite designed for animation-heavy a
   npm test
   ```
 
+## 🔄 CI/CD Pipeline
+
+Every push and pull request is automatically validated through a multi-stage pipeline:
+
+| Stage | Tool | Purpose |
+|-------|------|---------|
+| **Lint** | ESLint 9 | Enforces code style and catches anti-patterns |
+| **Test** | Vitest + RTL | Validates component logic and user interactions |
+| **Build** | Vite 7 | Produces optimized production bundle |
+
+> Quality gates block merges if any stage fails — no broken code reaches `main`.
+
 ## 🛠 Tech Stack
 
 - **Framework**: React 19 + Vite 7
@@ -26,6 +40,7 @@ This project features a robust unit testing suite designed for animation-heavy a
 - **Animations**: GSAP (GreenSock) + @gsap/react
 - **3D Elements**: Three.js + React Three Fiber
 - **Testing**: Vitest + React Testing Library + JSDOM
+- **CI/CD**: GitHub Actions
 
 ---
 
